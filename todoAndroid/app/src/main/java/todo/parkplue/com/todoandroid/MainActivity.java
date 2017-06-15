@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import todo.parkplue.com.todoandroid.util.Util;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
 
@@ -35,10 +37,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (id){
             case R.id.addBtn:
+
+                Util.addSchedule();
                 break;
         }
-
-
     }
 
 }

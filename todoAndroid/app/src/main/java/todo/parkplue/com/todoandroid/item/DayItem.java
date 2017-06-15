@@ -9,6 +9,7 @@ import io.realm.RealmObject;
 public class DayItem extends RealmObject {
 
     public String lastTodoThing;
+    public long lastWriteDate;
 
     //day  ex: 20170615
     public long dayKey;

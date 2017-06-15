@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">todoAndroid</string>
     <string name="btn_add_todo">Add Schedule</string>
+    <string name="btn_1">Complete</string>
+
+    <string name="hint_text1">Please enter your schedule</string>
 </resources>

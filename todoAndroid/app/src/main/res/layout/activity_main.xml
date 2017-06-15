@@ -33,6 +33,24 @@
         android:layout_marginTop="8dp"
         app:layout_constraintHorizontal_bias="0.0" />
 
+    <com.flipboard.bottomsheet.BottomSheetLayout
+        android:id="@+id/bottomsheet"
+        android:layout_width="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="150dp">
+
+        <LinearLayout
+            android:id="@+id/root"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+        </LinearLayout>
+
+    </com.flipboard.bottomsheet.BottomSheetLayout>
+
 
 
 </android.support.constraint.ConstraintLayout>

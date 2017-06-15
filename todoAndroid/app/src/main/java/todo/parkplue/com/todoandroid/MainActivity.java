@@ -18,9 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         initView();
-
     }
-
 
 
     private void initView(){
@@ -30,14 +28,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAddBtn.setOnClickListener(this);
     }
 
+
     @Override
     public void onClick(View v) {
-
         int id = v.getId();
 
         switch (id){
             case R.id.addBtn:
-
                 break;
         }
 

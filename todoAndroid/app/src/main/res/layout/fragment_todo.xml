@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:id="@+id/enterView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textColor="#000"
+        android:background="#fff"
+        android:gravity="center"
+        android:text="@string/btn_1"
+        android:layout_alignParentBottom="true"
+        />
+
+    <EditText
+        android:id="@+id/editBody"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/enterView"
+        android:gravity="left|top"
+        android:padding="5dp"
+        android:textColor="#000"
+        android:textColorHint="#55000000"
+        android:hint="@string/hint_text1"
+        />
+
+</RelativeLayout>

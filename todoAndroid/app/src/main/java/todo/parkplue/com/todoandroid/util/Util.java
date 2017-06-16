@@ -12,15 +12,20 @@ public class Util {
 
 
     public static void addSchedule(TodoItem item){
+
         Realm realm = Realm.getDefaultInstance();
 
         realm.beginTransaction();
         DayItem dayItem = realm.where(DayItem.class).equalTo("dayKey", item.startDate).findFirst();
         if(dayItem == null){
-            dayItem = realm.createObject(DayItem.class);
-            dayItem.dayKey = item.startDate;
+            dayItem = realm.createObject(DayItem.class, item.startDate);
             dayItem.lastTodoThing = item.thingTodo;
             dayItem.lastWriteDate = item.writeDate;
+        }else{
+            dayItem.lastTodoThing = item.thingTodo;
+            dayItem.lastWriteDate = item.writeDate;
+
+            realm.copyToRealmOrUpdate(dayItem);
         }
 
         TodoItem todoItem = realm.createObject(TodoItem.class);
@@ -33,14 +38,15 @@ public class Util {
 
 
 
-
-
-
 //        final Dog managedDog = realm.copyToRealm(dog); // 비관리 객체를 영속화하기
 //        Person person = realm.createObject(Person.class); // 관리 객체를 직접 만들기
 //        person.getDogs().add(managedDog);
         realm.commitTransaction();
 
     }
+
+
+
+
 
 }

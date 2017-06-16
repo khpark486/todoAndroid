@@ -1,29 +1,46 @@
 package todo.parkplue.com.todoandroid;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.flipboard.bottomsheet.BottomSheetLayout;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+import io.realm.Sort;
+import todo.parkplue.com.todoandroid.adapter.DayViewAdapter;
+import todo.parkplue.com.todoandroid.fragment.DayListFragment;
+import todo.parkplue.com.todoandroid.fragment.TodoListFragment;
 import todo.parkplue.com.todoandroid.holder.MenuViewHolder;
+import todo.parkplue.com.todoandroid.item.DayItem;
 import todo.parkplue.com.todoandroid.util.Util;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
 
-    RecyclerView mTodoList;
+
     TextView mAddBtn;
     BottomSheetLayout mBottomsheet;
     View mSheetView;
+
+
+    RelativeLayout mContentFrame;
+    Fragment mCurrentFragment;
 
 
     //choice menu
@@ -37,19 +54,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         initData();
 
         initView();
+
+        //set fragment
+        DayListFragment dayListFragment = new DayListFragment();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frame, dayListFragment);
+        ft.addToBackStack(null);
+        ft.commit();
+
+
     }
 
 
     private void initView(){
-        mTodoList = (RecyclerView) findViewById(R.id.listItem);
+
+        mContentFrame = (RelativeLayout)findViewById(R.id.frame);
+
         mAddBtn = (TextView)findViewById(R.id.addBtn);
         mBottomsheet = (BottomSheetLayout) findViewById(R.id.bottomsheet);
         mSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.sheet_layout, mBottomsheet, false);
 
         mChoiceList = (RecyclerView) mSheetView.findViewById(R.id.menuList);
+
+
+
+        //alpha black divider
+        DividerItemDecoration dividerAlpha = new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL);
+        dividerAlpha.setDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.divider_black_aplpha));
+
+
+
+
+        mChoiceList.addItemDecoration(dividerAlpha);
+
 
 
         setMenu();
@@ -63,6 +105,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
+
     public void setMenu(){
         mMenuAdapter = new MenuAdapter();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -70,9 +114,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mChoiceList.setLayoutManager(layoutManager);
 
         mChoiceList.setAdapter(mMenuAdapter);
-
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     @Override
     public void onClick(View v) {
@@ -81,7 +129,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (id){
             case R.id.addBtn:
                 mBottomsheet.showWithSheetView(mSheetView);
-
                 break;
         }
     }
@@ -95,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onBackPressed();
         }
     }
+
 
     public class MenuAdapter extends RecyclerView.Adapter<MenuViewHolder> {
 
@@ -131,5 +179,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
+
+
 
 }

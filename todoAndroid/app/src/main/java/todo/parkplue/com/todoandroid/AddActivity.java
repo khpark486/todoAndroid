@@ -95,17 +95,16 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                 todoItem.startDate = todayStrTime;
                 todoItem.finishDate = nextDayTime;
 
-
-            }else if(mPlanType == Constants.PLAN_TYPE_TODAY){
+            }else if(mPlanType == Constants.PLAN_TYPE_NEXTDAY){
 
                 todoItem.startDate = nextDayTime;
                 todoItem.finishDate = nextDayTime + 1000*60*60*24;
-
-            }else{
+            }else if(mPlanType == Constants.PLAN_TYPE_THISWEEK){
                 todoItem.startDate = todayStrTime;
                 todoItem.finishDate = weekLastTime;
             }
 
+            todoItem.thingTodo = mBodyEdit.getText().toString();
 
 
             Util.addSchedule(todoItem);

@@ -10,10 +10,21 @@ import io.realm.Realm;
 
 public class TodoApplication extends Application {
 
+
+    Realm mRealm;
+
     @Override
     public void onCreate() {
         super.onCreate();
         Realm.init(this);
+    }
+
+    public Realm getRealm(){
+
+        if(mRealm == null){
+            mRealm =  Realm.getDefaultInstance();
+        }
+       return mRealm;
     }
 
 

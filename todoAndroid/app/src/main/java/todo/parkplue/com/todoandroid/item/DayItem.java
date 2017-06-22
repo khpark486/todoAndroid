@@ -11,9 +11,13 @@ public class DayItem extends RealmObject {
 
     public String lastTodoThing;
     public long lastWriteDate;
+    //0:ing  1:done
+    public int status;
 
     //day  ex: 20170615
     @PrimaryKey
     public long dayKey;
+
+
 
 }

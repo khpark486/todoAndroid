@@ -45,6 +45,8 @@ public class DayViewAdapter extends RecyclerView.Adapter<DayViewHolder> {
         holder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
 //                Intent intent = new Intent(getApplicationContext(), AddActivity.class);
 //                intent.putExtra(Constants.PLAN_DAY, position);
 //                startActivity(intent);

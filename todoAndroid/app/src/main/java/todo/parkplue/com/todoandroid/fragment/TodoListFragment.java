@@ -50,6 +50,9 @@ public class TodoListFragment extends Fragment {
 
         mView =inflater.inflate(R.layout.fragment_todo, container,false);
 
+
+
+
         return mView;
     }
 
@@ -78,8 +81,6 @@ public class TodoListFragment extends Fragment {
 
 
     private void setList(){
-
-
 
         //init
         mTodoItemList.clear();

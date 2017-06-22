@@ -80,10 +80,9 @@ public class DayListFragment extends Fragment {
         RealmResults<DayItem> dayItemList = ((TodoApplication)getActivity().getApplication()).getRealm().where(DayItem.class).findAllSorted("dayKey", Sort.DESCENDING);
         Log.i("dayItemList","dayITemList size = " + dayItemList.size());
         for (DayItem item : dayItemList) {
-            if(!mDayItemList.contains(item)) {
-                mDayItemList.add(item);
-            }
+            mDayItemList.add(item);
         }
+
     }
 
 

@@ -32,16 +32,12 @@ import todo.parkplue.com.todoandroid.util.Util;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-
-
     TextView mAddBtn;
     BottomSheetLayout mBottomsheet;
     View mSheetView;
 
-
     RelativeLayout mContentFrame;
     Fragment mCurrentFragment;
-
 
     //choice menu
     RecyclerView mChoiceList;
@@ -57,14 +53,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         initData();
-
         initView();
+
 
         //set fragment
         DayListFragment dayListFragment = new DayListFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frame, dayListFragment);
-        ft.addToBackStack(null);
+//        ft.addToBackStack(null);
         ft.commit();
 
 

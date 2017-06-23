@@ -13,13 +13,14 @@ import todo.parkplue.com.todoandroid.R;
 
 public class DayViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView titleTxt;
+    public TextView titleTxt, dayType;
     public RelativeLayout rootView;
 
     public DayViewHolder(View itemView) {
         super(itemView);
         rootView = (RelativeLayout)itemView.findViewById(R.id.rootView);
         titleTxt = (TextView) itemView.findViewById(R.id.title);
+        dayType = (TextView) itemView.findViewById(R.id.dayType);
 
     }
 

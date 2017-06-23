@@ -50,11 +50,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         initData();
         initView();
-
 
         //set fragment
         DayListFragment dayListFragment = new DayListFragment();
@@ -62,8 +59,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ft.replace(R.id.frame, dayListFragment);
 //        ft.addToBackStack(null);
         ft.commit();
-
-
     }
 
 

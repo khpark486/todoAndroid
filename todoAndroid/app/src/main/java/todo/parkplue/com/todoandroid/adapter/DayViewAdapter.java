@@ -22,10 +22,14 @@ public class DayViewAdapter extends RecyclerView.Adapter<DayViewHolder> {
     ArrayList<DayItem> mDayItemList;
     Context mContext;
 
+    String[] mDayListStrAry;
+
 
     public DayViewAdapter(ArrayList<DayItem>  item, Context context){
         mDayItemList = item;
         mContext = context;
+
+        mDayListStrAry = context.getResources().getStringArray(R.array.dayMenu);
     }
 
     @Override
@@ -36,11 +40,18 @@ public class DayViewAdapter extends RecyclerView.Adapter<DayViewHolder> {
                 from(viewGroup.getContext()).
                 inflate(R.layout.item_day_row, viewGroup, false);
 
+
+
+
         return new DayViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(DayViewHolder holder, final int position) {
+
+        DayItem dayItem = mDayItemList.get(position);
+        holder.dayType.setText(mDayListStrAry[position]);
+
 
         holder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override

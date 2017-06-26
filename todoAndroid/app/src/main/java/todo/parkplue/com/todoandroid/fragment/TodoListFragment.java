@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
 import todo.parkplue.com.todoandroid.R;
@@ -25,6 +26,7 @@ import todo.parkplue.com.todoandroid.adapter.DayViewAdapter;
 import todo.parkplue.com.todoandroid.adapter.ToDayViewAdapter;
 import todo.parkplue.com.todoandroid.item.DayItem;
 import todo.parkplue.com.todoandroid.item.TodoItem;
+import todo.parkplue.com.todoandroid.listener.TodoInterfaceListener;
 
 /**
  * Created by khpark on 2017-06-16.
@@ -32,7 +34,7 @@ import todo.parkplue.com.todoandroid.item.TodoItem;
 
 
 
-public class TodoListFragment extends Fragment {
+public class TodoListFragment extends Fragment implements TodoInterfaceListener{
 
     View mView;
     RecyclerView mTodoList;
@@ -42,6 +44,9 @@ public class TodoListFragment extends Fragment {
     ArrayList<TodoItem> mTodoItemList;
     DayItem mDayItem;
 
+    long mDate;
+    TodoInterfaceListener mTodoListInterface;
+
 
     @Nullable
     @Override
@@ -50,9 +55,10 @@ public class TodoListFragment extends Fragment {
 
         mView =inflater.inflate(R.layout.fragment_todo, container,false);
 
+        mTodoItemList = new ArrayList<TodoItem>();
 
-
-
+        initView();
+        setList();
         return mView;
     }
 
@@ -64,9 +70,13 @@ public class TodoListFragment extends Fragment {
 
     private void initView(){
 
+
+        mTodoListInterface = this;
+
+
         mTodoList = (RecyclerView) mView.findViewById(R.id.listItem);
 
-        mToDayViewAdapter = new ToDayViewAdapter(mTodoItemList,mDayItem, getActivity().getApplicationContext() );
+        mToDayViewAdapter = new ToDayViewAdapter(mTodoItemList,mDayItem, getActivity().getApplicationContext(),mTodoListInterface);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mTodoList.setLayoutManager(layoutManager);
@@ -81,7 +91,6 @@ public class TodoListFragment extends Fragment {
 
 
     private void setList(){
-
         //init
         mTodoItemList.clear();
 
@@ -92,6 +101,46 @@ public class TodoListFragment extends Fragment {
                 mTodoItemList.add(item);
             }
         }
+
+        if(mToDayViewAdapter!=null){
+            mToDayViewAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public void setDayItem(DayItem dayItem){
+        mDayItem = dayItem;
+    }
+
+
+    public void todoChangeDone(boolean done, int position){
+
+        TodoItem tmpItem = mTodoItemList.get(position);
+        TodoItem changeTmpItem = ((TodoApplication)getActivity().getApplication()).getRealm().where(TodoItem.class).equalTo("writeDate",tmpItem.writeDate).findFirst();
+
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+
+        changeTmpItem.isDone = done;
+
+        realm.copyToRealmOrUpdate(changeTmpItem);
+        realm.commitTransaction();
+
+        //reload list
+        mTodoItemList.get(position).isDone = done;
+        if(mToDayViewAdapter!=null){
+            mToDayViewAdapter.notifyDataSetChanged();
+        }
+
+    }
+
+    @Override
+    public void complete(int position) {
+        todoChangeDone(true,position);
+    }
+
+    @Override
+    public void unComplete(int position) {
+        todoChangeDone(false,position);
     }
 
 

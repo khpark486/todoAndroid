@@ -21,7 +21,6 @@ public class DayViewHolder extends RecyclerView.ViewHolder {
         rootView = (RelativeLayout)itemView.findViewById(R.id.rootView);
         titleTxt = (TextView) itemView.findViewById(R.id.title);
         dayType = (TextView) itemView.findViewById(R.id.dayType);
-
     }
 
 }

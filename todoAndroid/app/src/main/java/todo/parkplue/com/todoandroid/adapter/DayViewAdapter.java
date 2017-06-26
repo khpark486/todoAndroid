@@ -1,6 +1,9 @@
 package todo.parkplue.com.todoandroid.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +12,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import todo.parkplue.com.todoandroid.R;
+import todo.parkplue.com.todoandroid.fragment.DayListFragment;
+import todo.parkplue.com.todoandroid.fragment.TodoListFragment;
 import todo.parkplue.com.todoandroid.holder.DayViewHolder;
 import todo.parkplue.com.todoandroid.holder.MenuViewHolder;
 import todo.parkplue.com.todoandroid.item.DayItem;
@@ -20,16 +25,16 @@ import todo.parkplue.com.todoandroid.item.DayItem;
 public class DayViewAdapter extends RecyclerView.Adapter<DayViewHolder> {
 
     ArrayList<DayItem> mDayItemList;
-    Context mContext;
+    AppCompatActivity mActivity;
 
     String[] mDayListStrAry;
 
 
-    public DayViewAdapter(ArrayList<DayItem>  item, Context context){
+    public DayViewAdapter(ArrayList<DayItem>  item, AppCompatActivity activity){
         mDayItemList = item;
-        mContext = context;
+        mActivity = activity;
 
-        mDayListStrAry = context.getResources().getStringArray(R.array.dayMenu);
+        mDayListStrAry = mActivity.getResources().getStringArray(R.array.dayMenu);
     }
 
     @Override
@@ -41,15 +46,13 @@ public class DayViewAdapter extends RecyclerView.Adapter<DayViewHolder> {
                 inflate(R.layout.item_day_row, viewGroup, false);
 
 
-
-
         return new DayViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(DayViewHolder holder, final int position) {
 
-        DayItem dayItem = mDayItemList.get(position);
+        final DayItem dayItem = mDayItemList.get(position);
         holder.dayType.setText(mDayListStrAry[position]);
 
 
@@ -57,6 +60,13 @@ public class DayViewAdapter extends RecyclerView.Adapter<DayViewHolder> {
             @Override
             public void onClick(View v) {
 
+                //set fragment
+                TodoListFragment todoFragment = new TodoListFragment();
+                todoFragment.setDayItem(dayItem);
+                FragmentTransaction ft = mActivity.getSupportFragmentManager().beginTransaction();
+                ft.add(R.id.frame, todoFragment);
+                ft.addToBackStack("day");
+                ft.commit();
 
 //                Intent intent = new Intent(getApplicationContext(), AddActivity.class);
 //                intent.putExtra(Constants.PLAN_DAY, position);

@@ -16,12 +16,33 @@
         android:text="@string/btn_1"
         android:layout_alignParentBottom="true"
         />
+    
+    <LinearLayout
+        android:id="@+id/dateInforLayout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_date"/>
+
+        <TextView
+            android:id="@+id/planDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"/>
+
+    </LinearLayout>
 
     <EditText
         android:id="@+id/editBody"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/enterView"
+        android:layout_below="@id/dateInforLayout"
         android:gravity="left|top"
         android:padding="5dp"
         android:textColor="#000"

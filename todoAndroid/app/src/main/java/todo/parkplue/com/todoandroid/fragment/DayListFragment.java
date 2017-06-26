@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -59,7 +60,7 @@ public class DayListFragment extends Fragment {
 
         mTodoList = (RecyclerView) mView.findViewById(R.id.listItem);
 
-        mDayViewAdapter = new DayViewAdapter(mDayItemList, getActivity().getApplicationContext() );
+        mDayViewAdapter = new DayViewAdapter(mDayItemList, (AppCompatActivity) getActivity());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mTodoList.setLayoutManager(layoutManager);
